@@ -9,4 +9,5 @@ dmake-vscode
 - [ ] Code blocks
 
 ### References
-- [vscode/html.tmLanguage.json at main · microsoft/vscode · GitHub](https://github.com/Microsoft/vscode/blob/main/extensions/html/syntaxes/html.tmLanguage.json)
+- [**vscode/html.tmLanguage.json at main · microsoft/vscode · GitHub**](https://github.com/Microsoft/vscode/blob/main/extensions/html/syntaxes/html.tmLanguage.json)
+- [**Language Grammars — TextMate 1.x Manual**](https://macromates.com/manual/en/language_grammars)

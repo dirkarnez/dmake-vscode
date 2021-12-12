@@ -1,0 +1,22 @@
+<FX name="Reverb" use="FabFilter Pro-Q3" installation="./q3.dll"/>
+
+<FXList name="MainVocalReverb">
+	<Reverb mix={0.9}/>
+</FXList>
+
+<Track name="MainVocal">
+	<FXList>
+		<MainVocalReverb/>
+	</FXList>
+	<Send>
+	</Send>
+</Track>
+
+<p>asdas</p>
+
+<button></button>
+
+<hr/>
+
+
+<!---->

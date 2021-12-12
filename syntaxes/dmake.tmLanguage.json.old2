@@ -1,0 +1,189 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "DMake",
+	"variables": {
+		"possiblyMultilineArrow": "((<\\s*$)|({{possiblyMultilineArrowWithoutTypeParameters}}))",
+		
+		
+		"jsxTagOrAtrributeIdentifier": "[_$[:alpha:]][-_$[:alnum:].]*",
+		"jsxTagNamespace": "(?:({{jsxTagOrAtrributeIdentifier}})(?<!\\.|-)(:))?",
+		"jsxTagName": "\\s*{{jsxTagNamespace}}((?:[a-z][a-z0-9]*|({{jsxTagOrAtrributeIdentifier}}))(?<!\\.|-))",
+		"jsxClosingTag": "(</){{jsxTagName}}?\\s*(>)",
+		"jsxTagStart": "(<){{jsxTagName}}(?=((<\\s*)|(\\s+))(?!\\?)|\\/?>)",
+
+
+		"jsxOpeningTagWithoutAttributes": "(<){{jsxTagName}}?\\s*(>)",
+
+
+		"jsxTagStartLookahead": "(?={{jsxTagStart}})",
+		"jsxLookBehindInExpression": "(?<!\\+\\+|--)(?<=[({\\[,?=>:*]|&&|\\|\\||\\?|\\*\\/|{{lookBehindAwait}}|{{lookBehindReturn}}|{{lookBehindDefault}}|{{lookBehindYield}}|^)\\s*"
+	},
+	"patterns": [
+		{
+			"include": "#keywords"
+		},
+		{
+			"include": "#strings"
+		}
+	],
+	"repository": {
+		"keywords": {
+			"patterns": [{
+				"name": "keyword.control.dmake",
+				"match": "\\b(if|while|for|return)\\b"
+			}]
+		},
+		"strings": {
+			"name": "string.quoted.double.dmake",
+			"begin": "\"",
+			"end": "\"",
+			"patterns": [
+				{
+					"name": "constant.character.escape.dmake",
+					"match": "\\\\."
+				}
+			]
+		},
+		"dmake": {
+			"patterns": [
+				{
+					"include": "#jsx-tag-without-attributes-in-expression"
+				},
+				{
+					"include": "#jsx-tag-in-expression"
+				}
+			]
+		},
+		"jsx-tag-without-attributes-in-expression": {
+			"begin": "{{jsxLookBehindInExpression}}(?={{jsxOpeningTagWithoutAttributes}})",
+			"end": "(?!{{jsxOpeningTagWithoutAttributes}})",
+			"patterns": [
+			  {
+				"include": "#jsx-tag-without-attributes"
+			  }
+			]
+		  },
+		  "jsx-tag-without-attributes": {
+			"name": "meta.tag.without-attributes.dmake",
+			"begin": "{{jsxOpeningTagWithoutAttributes}}",
+			"end": "{{jsxClosingTag}}",
+			"beginCaptures": {
+			  "1": {
+				"name": "punctuation.definition.tag.begin.dmake"
+			  },
+			  "2": {
+				"name": "entity.name.tag.namespace.dmake"
+			  },
+			  "3": {
+				"name": "punctuation.separator.namespace.dmake"
+			  },
+			  "4": {
+				"name": "entity.name.tag.dmake"
+			  },
+			  "5": {
+				"name": "support.class.component.dmake"
+			  },
+			  "6": {
+				"name": "punctuation.definition.tag.end.dmake"
+			  }
+			},
+			"endCaptures": {
+			  "1": {
+				"name": "punctuation.definition.tag.begin.dmake"
+			  },
+			  "2": {
+				"name": "entity.name.tag.namespace.dmake"
+			  },
+			  "3": {
+				"name": "punctuation.separator.namespace.dmake"
+			  },
+			  "4": {
+				"name": "entity.name.tag.dmake"
+			  },
+			  "5": {
+				"name": "support.class.component.dmake"
+			  },
+			  "6": {
+				"name": "punctuation.definition.tag.end.dmake"
+			  }
+			},
+			"contentName": "meta.jsx.children.dmake",
+			"patterns": [
+			  {
+				"include": "#jsx-children"
+			  }
+			]
+		  },
+		  "jsx-tag-in-expression": {
+			"begin": "(?x)\n  {{jsxLookBehindInExpression}}\n  (?!<\\s*[_$[:alpha:]][_$[:alnum:]]*((\\s+extends\\s+[^=>])|,)) # look ahead is not type parameter of arrow\n  {{jsxTagStartLookahead}}",
+			"end": "(?!{{jsxTagStart}})",
+			"patterns": [
+			  {
+				"include": "#jsx-tag"
+			  }
+			]
+		  },
+		  "jsx-tag": {
+			"name": "meta.tag.dmake",
+			"begin": "{{jsxTagStartLookahead}}",
+			"end": "(/>)|(?:{{jsxClosingTag}})",
+			"endCaptures": {
+			  "1": {
+				"name": "punctuation.definition.tag.end.dmake"
+			  },
+			  "2": {
+				"name": "punctuation.definition.tag.begin.dmake"
+			  },
+			  "3": {
+				"name": "entity.name.tag.namespace.dmake"
+			  },
+			  "4": {
+				"name": "punctuation.separator.namespace.dmake"
+			  },
+			  "5": {
+				"name": "entity.name.tag.dmake"
+			  },
+			  "6": {
+				"name": "support.class.component.dmake"
+			  },
+			  "7": {
+				"name": "punctuation.definition.tag.end.dmake"
+			  }
+			},
+			"patterns": [
+			  {
+				"begin": "{{jsxTagStart}}",
+				"beginCaptures": {
+				  "1": {
+					"name": "punctuation.definition.tag.begin.dmake"
+				  },
+				  "2": {
+					"name": "entity.name.tag.namespace.dmake"
+				  },
+				  "3": {
+					"name": "punctuation.separator.namespace.dmake"
+				  },
+				  "4": {
+					"name": "entity.name.tag.dmake"
+				  },
+				  "5": {
+					"name": "support.class.component.dmake"
+				  }
+				},
+				"end": "(?=[/]?>)"
+			  },
+			  {
+				"begin": "(>)",
+				"beginCaptures": {
+				  "1": {
+					"name": "punctuation.definition.tag.end.dmake"
+				  }
+				},
+				"end": "(?=</)",
+				"contentName": "meta.jsx.children.dmake"
+			  }
+			]
+		  }
+	},
+	"scopeName": "source.dmake"
+}

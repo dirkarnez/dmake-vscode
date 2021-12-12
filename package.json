@@ -1,0 +1,25 @@
+{
+    "name": "dmake-vscode",
+    "displayName": "dmake-vscode",
+    "description": "",
+    "version": "0.0.1",
+    "engines": {
+        "vscode": "^1.63.0"
+    },
+    "categories": [
+        "Programming Languages"
+    ],
+    "contributes": {
+        "languages": [{
+            "id": "dmake",
+            "aliases": ["DMake", "dmake"],
+            "extensions": [".dmake"],
+            "configuration": "./language-configuration.json"
+        }],
+        "grammars": [{
+            "language": "dmake",
+            "scopeName": "source.dmake",
+            "path": "./syntaxes/dmake.tmLanguage.json"
+        }]
+    }
+}

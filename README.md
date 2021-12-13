@@ -1,7 +1,9 @@
 dmake-vscode
 ============
 ### Notes
-- `git clone` and work directly in extensions folder (`--extensions-dir %EXTENSION_PATH%`) - networked symbolic link does not work (`mklink /j "target" "real_location"` maybe work)
+- `git clone` and work directly in extensions folder (`--extensions-dir %EXTENSION_PATH%`), however
+    - networked symbolic link does not work (`mklink /j "target" "real_location"` on local drives maybe work)
+    - networkless directory shortcut (with extension `.lnk`) does not work - get filtered out
 
 ### TODOs
 - [ ] Attributes

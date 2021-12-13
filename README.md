@@ -1,7 +1,7 @@
 dmake-vscode
 ============
 ### Notes
-- `git clone` and work directly in `%USERPROFILE%\.vscode\extensions` - symlink does not work
+- `git clone` and work directly in extensions folder (`--extensions-dir %EXTENSION_PATH%`) - networked symbolic link does not work (`mklink /j "target" "real_location"` maybe work)
 
 ### TODOs
 - [ ] Attributes

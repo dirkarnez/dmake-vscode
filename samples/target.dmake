@@ -1,0 +1,39 @@
+<Project>
+    {#if DMAKE_TARGET == "ProTools" && DMAKE_TARGET_VERSION >= "10"}
+        <FatalMessage>Sorry not supported</FatalMessage>
+    {/if}
+
+    <script>
+        import vumeter;
+        
+        const my_vumeter: vumeter = {
+
+        };
+        
+        function ducking(instrumental_track: MonoTrack, dry_vocal_track: MonoTrack) {
+            if (vumeter.measure(instrumental_track) > )
+        }
+    </script>
+
+    <FX name="Reverb" use="FabFilter Pro-Q3" installation="./q3.dll"/>
+
+    <FXList name="MainVocalReverb">
+        <Reverb mix={0.9}/>
+    </FXList>
+    
+    <Tracks>
+        <Track name="MainVocal" routeTo="Submix">
+            <FXList>
+                <MainVocalReverb/>
+            </FXList>
+            <Send to="Instrumentals"></Send>
+        </Track>
+        <Track name="Instrumentals" routeTo="Submix">
+            <FXList>
+                <Compressor sidechainSource="MainVocal" sidechainFunction={ducking}/>
+            </FXList>
+        </Track>
+        <Track name="Submix"/>
+    </Tracks>
+    <MasterBus/>
+</Project>
